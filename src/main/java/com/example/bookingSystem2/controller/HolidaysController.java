@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -64,5 +63,4 @@ public class HolidaysController {
         int intId = Integer.parseInt(id);
         return holidayService.deleteHoliday(intId);
     }
-
 }
