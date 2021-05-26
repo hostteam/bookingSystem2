@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Calendar</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css" id="bsdp-css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" id="awesome-css">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">So, here you are</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">About you
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/bookings}">All bookings</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="card" style="margin: 40px">
+    <div class="card-header">Choose your dates</div>
+    <div class="card-body">
+        <form method="post" th:action="@{/calendar_processing}" th:object="${holiday}">
+            <div class="form-group">
+                <label for="startDate">from</label>
+                <div class="input-group date" data-date-format="dd/mm/yyyy">
+                    <input class="datepicker form-control" type="text" th:field="*{holidayFrom}" th:errorclass="is-invalid"
+                           id="startDate" placeholder="dd/mm/yyyy" />
+                </div>
+                <span th:if="${#fields.hasErrors('holidayFrom')}" th:errors="*{holidayFrom}" class="error"></span>
+            </div>
+            <div class="form-group">
+                <label for="endDate">to</label>
+                <div class="input-group date" data-date-format="dd/mm/yyyy">
+                    <input class="datepicker form-control" type="text" th:field="*{holidayTo}" th:errorclass="is-invalid"
+                           name="endDate" id="endDate" placeholder="dd/mm/yyyy" />
+                </div>
+                <span th:if="${#fields.hasErrors('holidayTo')}" th:errors="*{holidayTo}" class="error"></span>
+            </div>
+            <div class="form-group">
+                <label for="comment">comment</label>
+                <div class="input-group-text">
+                    <input class="form-control" type="text" th:field="*{comment}" th:errorclass="is-invalid" id="comment"/>
+                </div>
+                <span th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}" class="error"></span>
+            </div>
+
+
+
+            <input type="submit" value="Confirm" />
+        </form>
+    </div>
+    <form th:action="@{/logout}" method="post">
+    <div class="card-footer">
+        <input type="submit" value="Sign Out"/>
+    </div>
+    </form>
+</div>
+<script th:inline="javascript">//type="text/javascript">
+        var disableDates = ["23-05-2021", "24-05-2021", "27-05-2021"];
+        disableDates.forEach(element => console.log(element));
+        var currentDate = new Date();
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            weekStart: 1,
+			autoclose: true,
+			startDate: "currentDate",
+            beforeShowDay: function(date){
+            console.log(date);
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+                if (day < 10) day = '0' + day.toString();
+                if (month < 10) month = '0' + month.toString();
+                dmy = day + "-" + month + "-" + date.getFullYear();
+                console.log(dmy);
+                if(disableDates.indexOf(dmy) != -1){
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }
+        });
+</script>
+</body>
+</html>
