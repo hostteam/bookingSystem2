@@ -74,31 +74,32 @@
     </div>
     </form>
 </div>
+
 <script th:inline="javascript">//type="text/javascript">
-        var disableDates = ["23-05-2021", "24-05-2021", "27-05-2021"];
-        disableDates.forEach(element => console.log(element));
-        var currentDate = new Date();
-        $('.datepicker').datepicker({
-            format: 'dd/mm/yyyy',
-            weekStart: 1,
-			autoclose: true,
-			startDate: "currentDate",
-            beforeShowDay: function(date){
+
+
+    var disableDates = /*[[${list}]]*/ 'default';
+    console.log(disableDates);
+    disableDates.forEach(element => console.log(element));
+    var currentDate = new Date();
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        weekStart: 1,
+		autoclose: true,
+		startDate: "currentDate",
+        beforeShowDay: function(date){
             console.log(date);
             var day = date.getDate();
             var month = date.getMonth() + 1;
-                if (day < 10) day = '0' + day.toString();
-                if (month < 10) month = '0' + month.toString();
-                dmy = day + "-" + month + "-" + date.getFullYear();
-                console.log(dmy);
-                if(disableDates.indexOf(dmy) != -1){
-                    return false;
-                }
-                else{
-                    return true;
-                }
-            }
-        });
+            if (day < 10) day = '0' + day.toString();
+            if (month < 10) month = '0' + month.toString();
+            dmy = day + "-" + month + "-" + date.getFullYear();
+            console.log(dmy);
+            if(disableDates.indexOf(dmy) != -1){
+                return false;
+            } else {return true;}
+        }
+    });
 </script>
 </body>
 </html>
