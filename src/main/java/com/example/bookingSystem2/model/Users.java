@@ -1,12 +1,7 @@
 package com.example.bookingSystem2.model;
 
 import com.sun.istack.NotNull;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -25,16 +20,6 @@ public class Users {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "holiday_id")
     )
-    private List<Holiday> holidays = new ArrayList<>();
-
-    public List<Holiday> getHolidays() {
-        return holidays;
-    }
-
-    public void setHolidays(List<Holiday> holidays) {
-        this.holidays = holidays;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -77,11 +62,6 @@ public class Users {
 
     public void setGroupId(Integer groupId) {
         this.groupId = groupId;
-    }
-
-    public void removeHoliday(Holiday newHoliday) {
-        holidays.remove(newHoliday);
-        newHoliday.setUser(null);
     }
 
     @Override

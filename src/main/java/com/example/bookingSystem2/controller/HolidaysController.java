@@ -1,4 +1,4 @@
-package com.example.bookingSystem2.resource;
+package com.example.bookingSystem2.controller;
 
 import com.example.bookingSystem2.model.Holiday;
 import com.example.bookingSystem2.model.HolidayService;
@@ -38,8 +38,11 @@ public class HolidaysController {
         dateRange.setHolidayFrom(new Date());
         dateRange.setHolidayTo(new Date());
 
+        Set<String> disabledDates = holidayService.allHolidaysFromCurDate();
+        disabledDates.forEach(a -> System.out.println(a));
 
         model.addAttribute("holiday", dateRange);
+        model.addAttribute("list", disabledDates);
         return "calendar";
     }
 

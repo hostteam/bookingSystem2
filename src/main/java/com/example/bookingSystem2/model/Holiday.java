@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+//working with new library lombok
 @Setter
 @Getter
 @NoArgsConstructor

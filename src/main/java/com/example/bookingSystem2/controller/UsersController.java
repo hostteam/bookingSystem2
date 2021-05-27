@@ -1,4 +1,4 @@
-package com.example.bookingSystem2.resource;
+package com.example.bookingSystem2.controller;
 
 import com.example.bookingSystem2.model.Users;
 import com.example.bookingSystem2.repository.UsersRepository;
