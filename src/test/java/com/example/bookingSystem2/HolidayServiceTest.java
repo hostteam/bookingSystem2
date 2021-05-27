@@ -73,7 +73,7 @@ public class HolidayServiceTest {
     }
     @Test
     public void checkBusyDates() {
-        Set<Date> allBusydates = holidayService.allHolidaysFromCurDate();
+        Set<String> allBusydates = holidayService.allHolidaysFromCurDate();
         assertEquals(allBusydates.size(), 5);
         allBusydates.stream().forEach(a -> System.out.println(a));
     }
